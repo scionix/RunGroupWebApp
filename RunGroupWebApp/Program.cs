@@ -1,25 +1,35 @@
 using Microsoft.EntityFrameworkCore;
 using RunGroopWebApp.Data;
 using RunGroupWebApp.Data.DBContext;
+using RunGroupWebApp.Helpers;
 using RunGroupWebApp.Interfaces;
 using RunGroupWebApp.Repositories;
+using RunGroupWebApp.Services;
 
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
 builder.Services.AddControllersWithViews();
+
+//Database repositories
 builder.Services.AddScoped(typeof(IGenericRepository<>), typeof(GenericRepository<>));
 builder.Services.AddScoped<IClubRepository, ClubRepository>();
 builder.Services.AddScoped<IRaceRepository, RaceRepository>();
 builder.Services.AddScoped<IAddressRepository, AddressRepository>();
 builder.Services.AddScoped<IAppUserRepository, AppUserRepository>();
 
-//EF Setup
+//image uploading service
+builder.Services.AddScoped<IPhotoService, PhotoService>();
+
+//EntityFramework Setup
 builder.Services.AddDbContext<RunGroupDbContext>(options =>
-    {
-        options.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnection"));
-    }
+{
+    options.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnection"));
+}
 );
+
+//Cloudinary image uploading
+builder.Services.Configure<CloudinarySettings>(builder.Configuration.GetSection("CloudinarySettings"));
 
 var app = builder.Build();
 

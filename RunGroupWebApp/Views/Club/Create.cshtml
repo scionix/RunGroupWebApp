@@ -1,0 +1,49 @@
+﻿@using RunGroupWebApp.Data.Enum;
+@using RunGroupWebApp.ViewModels;
+@model CreateClubViewModel
+@*
+    For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
+*@
+@{
+}
+
+<form method="post" asp-action="Create" enctype="multipart/form-data">
+    <div class="mb-3">
+        <label asp-for="Title" class="form-label">Title</label>
+        <input asp-for="Title" class="form-control" id="exampleInputTitle" aria-describedby="Club Title">
+        <span asp-validation-for="Title" cite="Invalid club title"></span>
+    </div>
+    <div class="mb-3">
+        <label asp-for="Description" class="form-label">Title</label>
+        <input asp-for="Description" class="form-control" id="exampleDescription" aria-describedby="Club Description">
+        <span asp-validation-for="Title" cite="Invalid club description"></span>
+    </div>
+    <div class="mb-3">
+        <label asp-for="ClubCategory" class="form-label">Category</label>
+        <select asp-for="ClubCategory" asp-items="@Html.GetEnumSelectList<ClubCategory>()">
+            <option>--Select--</option>
+        </select>
+        <span asp-validation-for="ClubCategory" cite="Invalid club category"></span>
+    </div>
+    <div class="mb-3">
+        <label asp-for="Address.Street" class="form-label">Street</label>
+        <input asp-for="Address.Street" class="form-control" id="exampleClubStreet" aria-describedby="Club Street">
+        <span asp-validation-for="Address.Street" cite="Invalid club street"></span>
+    </div>
+    <div class="mb-3">
+        <label asp-for="Address.City" class="form-label">City</label>
+        <input asp-for="Address.City" class="form-control" id="exampleClubCity" aria-describedby="Club City">
+        <span asp-validation-for="Address.Street" cite="Invalid club city"></span>
+    </div>
+    <div class="mb-3">
+        <label asp-for="Address.State" class="form-label">State</label>
+        <input asp-for="Address.State" class="form-control" id="exampleClubState" aria-describedby="Club State">
+        <span asp-validation-for="Address.State" cite="Invalid club state"></span>
+    </div>
+    <div class="mb-3">
+        <label asp-for="Image" class="form-label">Image</label>
+        <input asp-for="Image" type="file" class="form-control" id="exampleImage" aria-describedby="Club Image">
+        <span asp-validation-for="Image" cite="Invalid club image"></span>
+    </div>
+    <button type="submit" class="btn btn-primary">Submit</button>
+</form>
